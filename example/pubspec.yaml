@@ -1,0 +1,21 @@
+name: add_to_calendar_example
+description: Demonstrates how to use the add_to_calendar plugin.
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  datetime_picker_formfield: ^0.1.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  add_to_calendar:
+    path: ../
+flutter:
+  uses-material-design: true
