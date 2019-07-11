@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Fix crash on Android when parsing dates
+
 ## 0.0.2+2
 
 * Fix not matching meta version with flutter so documentation can be generated 
