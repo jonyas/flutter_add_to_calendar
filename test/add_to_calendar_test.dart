@@ -78,7 +78,7 @@ void main() {
     await AddToCalendar.addToCalendar(title: 'title', startTime: dateTime, isAllDay: true);
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
-      'startTime': dateTime.toUtc().toIso8601String(),
+      'startTime': dateTime.toUtc().millisecondsSinceEpoch,
       'endTime': null,
       'isAllDay': true,
       'location': null,
@@ -91,8 +91,8 @@ void main() {
     await AddToCalendar.addToCalendar(title: 'title', startTime: dateTime, endTime: dateTime);
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
-      'startTime': dateTime.toUtc().toIso8601String(),
-      'endTime': dateTime.toUtc().toIso8601String(),
+      'startTime': dateTime.toUtc().millisecondsSinceEpoch,
+      'endTime': dateTime.toUtc().millisecondsSinceEpoch,
       'isAllDay': false,
       'location': null,
       'description': null,
@@ -104,8 +104,8 @@ void main() {
     await AddToCalendar.addToCalendar(title: 'title', startTime: dateTime, endTime: dateTime, location: 'location');
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
-      'startTime': dateTime.toUtc().toIso8601String(),
-      'endTime': dateTime.toUtc().toIso8601String(),
+      'startTime': dateTime.toUtc().millisecondsSinceEpoch,
+      'endTime': dateTime.toUtc().millisecondsSinceEpoch,
       'isAllDay': false,
       'location': 'location',
       'description': null,
@@ -117,8 +117,8 @@ void main() {
     await AddToCalendar.addToCalendar(title: 'title', startTime: dateTime, endTime: dateTime, description: 'description');
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
-      'startTime': dateTime.toUtc().toIso8601String(),
-      'endTime': dateTime.toUtc().toIso8601String(),
+      'startTime': dateTime.toUtc().millisecondsSinceEpoch,
+      'endTime': dateTime.toUtc().millisecondsSinceEpoch,
       'isAllDay': false,
       'location': null,
       'description': 'description',

@@ -8,7 +8,6 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddToCalendarPlugin(private val activity: Activity) : MethodCallHandler {
@@ -24,12 +23,12 @@ class AddToCalendarPlugin(private val activity: Activity) : MethodCallHandler {
     if (call.method == "addToCalendar") {
       // compulsory params
       val title = call.argument<String>("title")!!
-      val startTime = fromISO8601UTC(call.argument<String>("startTime")!!)
+      val startTime = Date(call.argument<Long>("startTime")!!)
 
       // optional params
       val location = call.argument<String>("location")
       val description = call.argument<String>("description")
-      val endTime = call.argument<String>("endTime")?.let { fromISO8601UTC(it) }
+      val endTime = call.argument<Long>("endTime")?.let { Date(it) }
       val isAllDay = call.argument<Boolean>("isAllDay")
 
       val intent = Intent(Intent.ACTION_EDIT).apply {
@@ -47,10 +46,5 @@ class AddToCalendarPlugin(private val activity: Activity) : MethodCallHandler {
     } else {
       result.notImplemented()
     }
-  }
-
-  private fun fromISO8601UTC(dateStr: String): Date {
-    val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault())
-    return df.parse(dateStr)
   }
 }

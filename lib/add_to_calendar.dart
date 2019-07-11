@@ -30,8 +30,8 @@ class AddToCalendar {
     assert(isAllDay != (endTime != null)); // XOR. You give either endTime or isAllDay
     return channel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': title,
-      'startTime': startTime.toUtc().toIso8601String(),
-      'endTime': endTime?.toUtc()?.toIso8601String(),
+      'startTime': startTime.toUtc().millisecondsSinceEpoch,
+      'endTime': endTime?.toUtc()?.millisecondsSinceEpoch,
       'isAllDay': isAllDay,
       'location': location,
       'description': description,
