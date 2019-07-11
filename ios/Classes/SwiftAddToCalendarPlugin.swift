@@ -20,10 +20,10 @@ public class SwiftAddToCalendarPlugin: NSObject, FlutterPlugin, EKEventEditViewD
             let location = arguments["location"] as? String
             let description = arguments["description"] as? String
             let allDay = arguments["isAllDay"] as? NSNumber
-            let startDate = dateFromISOString(arguments["startTime"] as! String)
+            let startDate = dateFromNumber(arguments["startTime"] as! NSNumber)
             
-            if let endDateString = arguments["endTime"] as? String {
-                self.addToCalendar(title: title, startDate: startDate, endDate: dateFromISOString(endDateString), location: location, description: description, isAllDay: allDay)
+            if let endDateNumber = arguments["endTime"] as? NSNumber {
+                self.addToCalendar(title: title, startDate: startDate, endDate: dateFromNumber(endDateNumber), location: location, description: description, isAllDay: allDay)
             } else {
                 self.addToCalendar(title: title, startDate: startDate, endDate: nil, location: location, description: description, isAllDay: allDay)
             }
@@ -34,11 +34,9 @@ public class SwiftAddToCalendarPlugin: NSObject, FlutterPlugin, EKEventEditViewD
             break
         }
     }
-    
-    func dateFromISOString(_ string: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        return dateFormatter.date(from: string)!
+
+    func dateFromNumber(_ millis: NSNumber) -> Date {
+        return Date(timeIntervalSince1970: TimeInterval(millis) / 1000)
     }
     
     func addToCalendar(title: String, startDate: Date, endDate: Date?, location: String?, description: String?, isAllDay: NSNumber?) {
