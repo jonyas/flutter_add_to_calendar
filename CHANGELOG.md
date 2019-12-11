@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Cleanup non needed dependencies
+
 ## 1.0.0
 
 * Fix crash on Android when parsing dates
