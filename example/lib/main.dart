@@ -1,7 +1,5 @@
 import 'package:add_to_calendar/add_to_calendar.dart';
 import 'package:flutter/material.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,8 +47,8 @@ class _HomeState extends State<_Home> {
                     labelText: 'Event title:',
                   ),
                   onChanged: (String value) => setState(() {
-                        title = value;
-                      }),
+                    title = value;
+                  }),
                 ),
                 TextField(
                   decoration: const InputDecoration(
@@ -65,28 +63,40 @@ class _HomeState extends State<_Home> {
                     labelText: 'Event location: (Optional)',
                   ),
                   onChanged: (String value) => setState(() {
-                        location = value;
-                      }),
+                    location = value;
+                  }),
                 ),
-                DateTimePickerFormField(
-                  inputType: InputType.both,
-                  format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
-                  editable: true,
-                  decoration: InputDecoration(labelText: 'Start Time', hasFloatingPlaceholder: true),
-                  onChanged: (dt) {
-                    setState(() => startDate = dt);
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () async {
+                    final DateTime picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2015, 8),
+                      lastDate: DateTime(2101),
+                    );
+                    if (picked != null && picked != startDate)
+                      setState(() {
+                        startDate = picked;
+                      });
                   },
+                  child: Text(startDate != null ? startDate.toIso8601String() : 'Select start date'),
                 ),
-                DateTimePickerFormField(
-                  inputType: InputType.both,
-                  initialDate: startDate,
-                  format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
-                  editable: true,
-                  decoration: InputDecoration(labelText: 'End Time', hasFloatingPlaceholder: false),
-                  controller: endDateController,
-                  onChanged: (dt) {
-                    setState(() => endDate = dt);
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () async {
+                    final DateTime picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2015, 8),
+                      lastDate: DateTime(2101),
+                    );
+                    if (picked != null && picked != endDate)
+                      setState(() {
+                        endDate = picked;
+                      });
                   },
+                  child: Text(startDate != null ? startDate.toIso8601String() : 'Select end date'),
                 ),
                 Row(
                   children: [
