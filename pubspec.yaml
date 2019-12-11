@@ -1,7 +1,6 @@
 name: add_to_calendar
 description: A Flutter plugin that allows opening a native UI to add an event with custom parameters to user calendar
-version: 1.0.0+1
-author: Jon Duran <jonyas@gmail.com>
+version: 1.0.1
 homepage: https://github.com/jonyas/flutter_add_to_calendar
 
 environment:
