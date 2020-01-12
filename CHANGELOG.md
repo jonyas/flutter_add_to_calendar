@@ -1,3 +1,7 @@
+## 1.1.0
+
+* When setting event as same day, use start date value as end time as well
+
 ## 1.0.1
 
 * Cleanup non needed dependencies
