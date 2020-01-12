@@ -10,6 +10,7 @@ void main() {
   MockMethodChannel mockChannel;
 
   setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
     mockChannel = MockMethodChannel();
     AddToCalendar.channel.setMockMethodCallHandler((MethodCall call) async {
       mockChannel.invokeMethod(call.method, call.arguments);
@@ -79,7 +80,8 @@ void main() {
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
       'startTime': dateTime.toUtc().millisecondsSinceEpoch,
-      'endTime': null,
+      // all day event by default defined same as startTime. End day will be same day as start time.
+      'endTime': dateTime.toUtc().millisecondsSinceEpoch,
       'isAllDay': true,
       'location': null,
       'description': null,

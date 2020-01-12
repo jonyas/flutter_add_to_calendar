@@ -31,7 +31,7 @@ class AddToCalendar {
     return channel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': title,
       'startTime': startTime.toUtc().millisecondsSinceEpoch,
-      'endTime': endTime?.toUtc()?.millisecondsSinceEpoch,
+      'endTime': isAllDay? startTime.toUtc().millisecondsSinceEpoch: endTime.toUtc().millisecondsSinceEpoch,
       'isAllDay': isAllDay,
       'location': location,
       'description': description,
