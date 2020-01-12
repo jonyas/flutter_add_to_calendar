@@ -96,7 +96,7 @@ class _HomeState extends State<_Home> {
                         endDate = picked;
                       });
                   },
-                  child: Text(startDate != null ? startDate.toIso8601String() : 'Select end date'),
+                  child: Text(endDate != null ? endDate.toIso8601String() : 'Select end date'),
                 ),
                 Row(
                   children: [
