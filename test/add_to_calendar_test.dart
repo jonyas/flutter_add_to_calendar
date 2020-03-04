@@ -20,9 +20,9 @@ void main() {
   test('add to calendar null title fails', () {
     expect(
       () => AddToCalendar.addToCalendar(
-            title: null,
-            startTime: DateTime.now(),
-          ),
+        title: null,
+        startTime: DateTime.now(),
+      ),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -31,9 +31,9 @@ void main() {
   test('add to calendar empty title fails', () {
     expect(
       () => AddToCalendar.addToCalendar(
-            title: '',
-            startTime: DateTime.now(),
-          ),
+        title: '',
+        startTime: DateTime.now(),
+      ),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -42,9 +42,9 @@ void main() {
   test('add to calendar null startTime fails', () {
     expect(
       () => AddToCalendar.addToCalendar(
-            title: 'title',
-            startTime: null,
-          ),
+        title: 'title',
+        startTime: null,
+      ),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -53,9 +53,9 @@ void main() {
   test('add to calendar not giving endTime when not all day fails', () {
     expect(
       () => AddToCalendar.addToCalendar(
-            title: 'title',
-            startTime: DateTime.now(),
-          ),
+        title: 'title',
+        startTime: DateTime.now(),
+      ),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -64,11 +64,37 @@ void main() {
   test('add to calendar giving endTime and all day fails', () {
     expect(
       () => AddToCalendar.addToCalendar(
-            title: 'title',
-            startTime: DateTime.now(),
-            endTime: DateTime.now(),
-            isAllDay: true,
-          ),
+        title: 'title',
+        startTime: DateTime.now(),
+        endTime: DateTime.now(),
+        isAllDay: true,
+      ),
+      throwsA(const TypeMatcher<AssertionError>()),
+    );
+    verifyZeroInteractions(mockChannel);
+  });
+
+  test('add to calendar giving frequency but not type fails', () {
+    expect(
+      () => AddToCalendar.addToCalendar(
+        title: 'title',
+        startTime: DateTime.now(),
+        isAllDay: true,
+        frequency: 2,
+      ),
+      throwsA(const TypeMatcher<AssertionError>()),
+    );
+    verifyZeroInteractions(mockChannel);
+  });
+
+  test('add to calendar giving frequencyType but not frequency fails', () {
+    expect(
+      () => AddToCalendar.addToCalendar(
+        title: 'title',
+        startTime: DateTime.now(),
+        isAllDay: true,
+        frequencyType: FrequencyType.DAILY,
+      ),
       throwsA(const TypeMatcher<AssertionError>()),
     );
     verifyZeroInteractions(mockChannel);
@@ -116,7 +142,8 @@ void main() {
 
   test('adds to calendar with provided description', () async {
     final dateTime = DateTime.now();
-    await AddToCalendar.addToCalendar(title: 'title', startTime: dateTime, endTime: dateTime, description: 'description');
+    await AddToCalendar.addToCalendar(
+        title: 'title', startTime: dateTime, endTime: dateTime, description: 'description');
     verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
       'title': 'title',
       'startTime': dateTime.toUtc().millisecondsSinceEpoch,
@@ -124,6 +151,28 @@ void main() {
       'isAllDay': false,
       'location': null,
       'description': 'description',
+    }));
+  });
+
+  test('adds to calendar with frequency and type', () async {
+    final dateTime = DateTime.now();
+    await AddToCalendar.addToCalendar(
+      title: 'title',
+      startTime: dateTime,
+      endTime: dateTime,
+      description: 'description',
+      frequency: 2,
+      frequencyType: FrequencyType.DAILY,
+    );
+    verify(mockChannel.invokeMethod('addToCalendar', <String, dynamic>{
+      'title': 'title',
+      'startTime': dateTime.toUtc().millisecondsSinceEpoch,
+      'endTime': dateTime.toUtc().millisecondsSinceEpoch,
+      'isAllDay': false,
+      'location': null,
+      'description': 'description',
+      'frequency': 2,
+      'frequencyType': "DAILY",
     }));
   });
 }
