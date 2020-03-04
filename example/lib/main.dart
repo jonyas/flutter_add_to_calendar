@@ -19,6 +19,8 @@ class _HomeState extends State<_Home> {
   String title = '';
   String location = '';
   String description = '';
+  int frequency;
+  FrequencyType selectedFrequency;
   DateTime startDate;
   DateTime endDate;
   TextEditingController endDateController = TextEditingController();
@@ -98,6 +100,16 @@ class _HomeState extends State<_Home> {
                   },
                   child: Text(endDate != null ? endDate.toIso8601String() : 'Select end date'),
                 ),
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Frequency: (Optional)',
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (String value) => setState(() {
+                    frequency = int.parse(value);
+                  }),
+                ),
+                SizedBox(height: 8),
                 Row(
                   children: [
                     Text('All day'),
@@ -113,6 +125,23 @@ class _HomeState extends State<_Home> {
                     ),
                   ],
                 ),
+                SizedBox(height: 8),
+                DropdownButton<FrequencyType>(
+                  hint: Text("Select frequency"),
+                  value: selectedFrequency,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedFrequency = value;
+                    });
+                  },
+                  items: FrequencyType.values.map((frequencyType) {
+                    return DropdownMenuItem<FrequencyType>(
+                      value: frequencyType,
+                      child: Text(frequencyType.toString()),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 8),
                 RaisedButton(
                   child: const Text('Add to calendar'),
                   onPressed: title.isEmpty || startDate == null
@@ -124,7 +153,9 @@ class _HomeState extends State<_Home> {
                             endTime: endDate,
                             location: location,
                             description: description,
-                            isAllDay: allDay == true ? true : null,
+                            isAllDay: allDay,
+                            frequency: frequency,
+                            frequencyType: selectedFrequency,
                           );
                         },
                 )
