@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Add support to create recurrence events
+
 ## 1.1.0
 
 * When setting event as same day, use start date value as end time as well
