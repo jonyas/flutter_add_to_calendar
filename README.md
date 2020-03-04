@@ -29,6 +29,8 @@ You can check the Example app to see a real use case on how to trigger the nativ
   /// [isAllDay] bool value stating if the event will be a full day event
   /// [location] optional String with the location of the event
   /// [description] optional String with the description of the event
+  /// [frequency] optional int with the information about recurrence of the event
+  /// [frequencyType] optional enum that states the frequency. Daily, weekly, monthly
   /// 
   static Future addToCalendar({
     @required String title,
@@ -37,5 +39,7 @@ You can check the Example app to see a real use case on how to trigger the nativ
     bool isAllDay = false,
     String location,
     String description,
+    int frequency,
+    FrequencyType frequencyType,
   })
 ```
