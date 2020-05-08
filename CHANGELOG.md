@@ -1,3 +1,7 @@
+## 1.2.0+1
+
+* Fix some built time warnings in iOS
+
 ## 1.2.0
 
 * Add support to create recurrence events

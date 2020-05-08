@@ -50,7 +50,7 @@ public class SwiftAddToCalendarPlugin: NSObject, FlutterPlugin, EKEventEditViewD
     }
 
     func dateFromNumber(_ millis: NSNumber) -> Date {
-        return Date(timeIntervalSince1970: TimeInterval(millis) / 1000)
+        return Date(timeIntervalSince1970: TimeInterval(truncating: millis) / 1000)
     }
     
     func addToCalendar(title: String, startDate: Date, endDate: Date?, location: String?, description: String?, isAllDay: NSNumber?, frequency: Int?, frequencyType: EKRecurrenceFrequency?) {
